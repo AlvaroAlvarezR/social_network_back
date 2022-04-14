@@ -10,7 +10,12 @@ module.exports = app => {
             isAuthenticated
         ],
         user.createUser);
-    router.put('/:id', user.editUser);
+    router.put('/:id', isAuthenticated,  user.editUser);
+    router.post('/image', [
+        upload.single("file"),
+        isAuthenticated
+    ],
+    user.editUserImage);
     app.use('/api/user', router);
 };
 

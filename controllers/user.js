@@ -31,7 +31,7 @@ exports.editUser = async (req , res) => {
         await User.update({
             firstName, lastName, email
         },{
-            where: { id: req.body.auth.user.id}
+            where: { id: req.body.auth.id}
         })
         res.status(200).send({msg: 'Usuario Editado'});
     } catch (error) {
@@ -45,7 +45,7 @@ exports.editUserImage = async (req , res) => {
         await User.update({
             imageUrl
         },{
-            where: { id: req.body.auth.user.id}
+            where: { id: req.body.auth.id}
         })
         res.status(200).send({msg: 'Imagen de Usuario Editado'});
     } catch (error) {
