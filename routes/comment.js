@@ -3,7 +3,7 @@ module.exports = app => {
     const comment = require('../controllers/comment');
     const isAuthenticated = require('../middleware/authenticator');
 
-    router.get('/:id(\d+)', isAuthenticated, comment.getcomment);
+    router.get('/:id(\d+)', isAuthenticated, comment.getComment);
     router.post('/', isAuthenticated, comment.createComment);
     router.put('/:id', isAuthenticated, comment.editComment);
     router.delete('/:id', isAuthenticated, comment.deleteComment);

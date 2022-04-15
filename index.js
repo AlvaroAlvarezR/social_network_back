@@ -20,8 +20,8 @@ app.get("/", (req, res) => {
 require('./routes/user')(app);
 require('./routes/auth')(app);
 require('./routes/post')(app);
-// require('./routes/comment')(app);
-// require('./routes/like')(app);
+require('./routes/comment')(app);
+require('./routes/like')(app);
 
 // Routes
 // app.use('/api/users', userRoutes);

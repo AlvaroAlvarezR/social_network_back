@@ -67,12 +67,23 @@ exports.getFeed = async (req , res) => { // Missing: Add Comments to Posts tree
     // const userId = req.body.auth.id;
     const {page, size} = req.query;
     const { limit, offset } = paginator.getPagination(page, size);
-    const posts = await Post.findAndCountAll({
-        // where: {userId},
-        limit,
-        offset,
-        order: [["createdAt", "DESC" ]]
-    })
-    const data = paginator.getPagingData(posts, page, limit)
-    return res.status(200).send({msg: 'Listado Post', data});
+    try {
+        const posts = await Post.findAndCountAll({
+            // where: {userId},
+            attributes: [
+                'id', 'text', 'createdAt',
+            ],
+            include: [
+                { model: db.Comment, as: 'comments'},
+                { model: db.Like, as: 'likes'}
+            ],
+            limit,
+            offset,
+            order: [["createdAt", "DESC" ]],
+        })
+        const data = paginator.getPagingData(posts, page, limit)
+        return res.status(200).send({msg: 'Listado Post', data});
+    } catch (error) {
+        return res.status(404).send(error)
+    }
 }
